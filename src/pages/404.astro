@@ -1,0 +1,34 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Page Not Found — Slidell Stitches"
+  description="This page got lost in the thread. Let's get you back to shopping."
+>
+  <section class="min-h-[60vh] flex items-center justify-center px-6 py-16">
+    <div class="max-w-xl text-center">
+      <p class="font-script text-4xl text-sage mb-4">well, shoot</p>
+      <h1 class="font-serif text-4xl md:text-5xl text-charcoal mb-6">
+        This page got lost in the thread.
+      </h1>
+      <p class="font-body text-charcoal-light text-lg mb-8">
+        The page you're looking for doesn't exist — but our shop is full of things that might catch your eye.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/shop"
+          class="inline-block bg-sage text-white font-body rounded-lg px-8 py-3 hover:bg-sage-dark transition-colors duration-200"
+        >
+          Shop All Products
+        </a>
+        <a
+          href="/"
+          class="inline-block border-2 border-sage text-sage font-body rounded-lg px-8 py-3 hover:bg-sage hover:text-white transition-colors duration-200"
+        >
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

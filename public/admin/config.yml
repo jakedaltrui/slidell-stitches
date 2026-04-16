@@ -1,0 +1,60 @@
+backend:
+  name: github
+  repo: slidell-stitches/slidell-stitches  # UPDATE once repo is created
+  branch: main
+
+media_folder: "public/images/products"
+public_folder: "/images/products"
+
+site_url: https://slidell-stitches.com
+display_url: https://slidell-stitches.com
+logo_url: /logo.png
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{name}} — ${{price}}"
+    sortable_fields: ["name", "price", "category", "featured"]
+    view_filters:
+      - label: "Featured"
+        field: featured
+        pattern: true
+      - label: "In Stock"
+        field: in_stock
+        pattern: true
+      - label: "Wreath Sashes"
+        field: category
+        pattern: "wreath-sashes"
+      - label: "Hats"
+        field: category
+        pattern: "hats"
+      - label: "Baby"
+        field: category
+        pattern: "baby"
+    fields:
+      - { label: "Name", name: "name", widget: "string", hint: "The product name (shows as the page H1)" }
+      - { label: "Price", name: "price", widget: "number", value_type: "float", min: 0, step: 0.01 }
+      - { label: "Main Image", name: "image", widget: "image", hint: "Product photo (ideally 1200px wide, under 500KB)" }
+      - { label: "Image Alt Text", name: "image_alt", widget: "string", hint: "Describe the image for accessibility and SEO" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Wreath Sashes", value: "wreath-sashes" }
+          - { label: "Hats", value: "hats" }
+          - { label: "Cocktail Napkins", value: "cocktail-napkins" }
+          - { label: "Towels", value: "towels" }
+          - { label: "Baby", value: "baby" }
+          - { label: "Children's Clothing", value: "childrens-clothing" }
+          - { label: "Bouquet Wraps", value: "bouquet-wraps" }
+          - { label: "Pets", value: "pets" }
+      - { label: "Etsy URL", name: "etsy_url", widget: "string", hint: "The Etsy listing URL — the 'Buy on Etsy' button links here" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Show on the homepage Customer Favorites section" }
+      - { label: "In Stock", name: "in_stock", widget: "boolean", default: true }
+      - { label: "Description", name: "description", widget: "text", hint: "2-3 sentences about the product (shows on the product page)" }
+      - { label: "Meta Description", name: "meta_description", widget: "string", required: false, hint: "SEO description under 155 characters" }

@@ -1,0 +1,142 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import CategoryCard from "../components/CategoryCard.astro";
+import ProductCard from "../components/ProductCard.astro";
+import { site } from "../data/site";
+import { categoryList, categories } from "../data/categories";
+
+const allProducts = await getCollection("products");
+
+const featuredProducts = allProducts
+  .filter((p) => p.data.featured && p.data.in_stock)
+  .slice(0, 4);
+
+const firstProductImageByCategory: Record<string, string> = {};
+for (const cat of categoryList) {
+  const firstFeatured = allProducts.find(
+    (p) => p.data.category === cat.slug && p.data.featured
+  );
+  const fallback = allProducts.find((p) => p.data.category === cat.slug);
+  const chosen = firstFeatured ?? fallback;
+  if (chosen) {
+    firstProductImageByCategory[cat.slug] = chosen.data.image;
+  }
+}
+
+const categoryCards = categoryList.map((cat) => ({
+  ...cat,
+  image: firstProductImageByCategory[cat.slug] ?? cat.image,
+}));
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}${site.logo}`,
+  description: site.description,
+  email: site.email.info,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Slidell",
+    addressRegion: "LA",
+    addressCountry: "US",
+  },
+  sameAs: [site.social.facebook, site.social.etsy],
+});
+---
+
+<Base
+  title="Slidell Stitches — Handmade Embroidery from Slidell, Louisiana"
+  description={site.description}
+  schema={schema}
+>
+  <Hero />
+
+  <!-- Shop by Category -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-10">Shop by Category</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {categoryCards.map((cat) => (
+        <CategoryCard name={cat.name} slug={cat.slug} image={cat.image} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Customer Favorites -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-10">Customer Favorites</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {featuredProducts.map((product) => (
+        <ProductCard
+          name={product.data.name}
+          price={product.data.price}
+          image={product.data.image}
+          imageAlt={product.data.image_alt}
+          slug={product.id}
+          category={categories[product.data.category].name}
+        />
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <a href="/shop" class="font-body text-sage hover:text-sage-dark underline underline-offset-4 transition-colors duration-200">
+        View All Products
+      </a>
+    </div>
+  </section>
+
+  <!-- Custom Order CTA -->
+  <section class="bg-cream-dark py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-serif text-3xl md:text-4xl text-charcoal mb-4">Have something special in mind?</h2>
+      <p class="font-body text-charcoal-light text-lg mb-8">
+        Monograms, school logos, custom colors — tell me what you're dreaming up and I'll make it happen.
+      </p>
+      <a href="/custom-orders" class="inline-block bg-sage text-white font-body rounded-lg px-8 py-3 hover:bg-sage-dark transition-colors duration-200">
+        Request a Custom Order
+      </a>
+    </div>
+  </section>
+
+  <!-- Why Slidell Stitches -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-12">Why Slidell Stitches?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="text-center">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-sage" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-charcoal mb-2">Handmade with Care</h3>
+        <p class="font-body text-charcoal-light">
+          Every stitch is done by hand right here in Slidell. No mass production, no shortcuts — just thoughtful craftsmanship you can see and feel.
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-sage" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-charcoal mb-2">Personalized for You</h3>
+        <p class="font-body text-charcoal-light">
+          Your order is made to order with the colors, names, and designs you choose. No two pieces are exactly alike.
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-sage" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-charcoal mb-2">Trusted by 645+ Customers</h3>
+        <p class="font-body text-charcoal-light">
+          With a 4.9 rating on Etsy and hundreds of happy customers, you're in good hands. Quality and care, every single time.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

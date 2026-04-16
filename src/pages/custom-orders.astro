@@ -1,0 +1,268 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Custom Embroidery",
+  description:
+    "Custom embroidered wreath sashes, hats, napkins, baby gifts and more — handmade in Slidell, Louisiana.",
+  areaServed: "United States",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Slidell Stitches",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Slidell",
+      addressRegion: "LA",
+      addressCountry: "US",
+    },
+    url: site.url,
+  },
+});
+---
+
+<Base
+  title="Custom Embroidery Orders — Slidell Stitches"
+  description="Request custom embroidered wreath sashes, hats, napkins, baby gifts & more. Handmade in Slidell, Louisiana."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="py-16 px-6 max-w-4xl mx-auto text-center">
+    <h1 class="font-serif text-4xl text-charcoal mb-4">Bring Your Idea to Life</h1>
+    <p class="font-body text-charcoal-light text-lg mb-6">
+      Monograms, school logos, custom colors — tell me what you're dreaming up and I'll make it happen.
+    </p>
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-charcoal-light font-body">
+      <span>645+ orders completed</span>
+      <span class="hidden sm:inline">/</span>
+      <span>4.9 rated</span>
+      <span class="hidden sm:inline">/</span>
+      <span>Most custom orders ship in 5-7 days</span>
+    </div>
+  </section>
+
+  <!-- Past Custom Work -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-10">Past Custom Work</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+      <div class="aspect-square bg-sage-light rounded-xl flex items-center justify-center text-charcoal-light font-body text-sm">Photo coming soon</div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 px-6 bg-cream-dark">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-12">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="text-center">
+          <div class="bg-sage text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-4 font-body font-semibold">1</div>
+          <h3 class="font-serif text-xl text-charcoal mb-2">Tell me your idea</h3>
+          <p class="font-body text-charcoal-light">Fill out the form below with what you're looking for.</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-sage text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-4 font-body font-semibold">2</div>
+          <h3 class="font-serif text-xl text-charcoal mb-2">Get a quote</h3>
+          <p class="font-body text-charcoal-light">I'll review your request and get back to you within 24 hours.</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-sage text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-4 font-body font-semibold">3</div>
+          <h3 class="font-serif text-xl text-charcoal mb-2">I get stitching</h3>
+          <p class="font-body text-charcoal-light">Once we're aligned, I'll get to work on your custom piece.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="py-16 px-6">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="font-serif text-3xl md:text-4xl text-charcoal text-center mb-10">Request Your Custom Order</h2>
+
+      <form
+        id="custom-order-form"
+        action="https://formspree.io/f/placeholder"
+        method="POST"
+        class="space-y-5"
+      >
+        <div>
+          <label for="name" class="block font-body font-medium text-charcoal mb-2">Name <span class="text-sage">*</span></label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block font-body font-medium text-charcoal mb-2">Email <span class="text-sage">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="item_type" class="block font-body font-medium text-charcoal mb-2">What are you looking for? <span class="text-sage">*</span></label>
+          <select
+            id="item_type"
+            name="item_type"
+            required
+            class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none bg-white"
+          >
+            <option value="">Select an item...</option>
+            <option value="Wreath Sash">Wreath Sash</option>
+            <option value="Hat">Hat</option>
+            <option value="Cocktail Napkins">Cocktail Napkins</option>
+            <option value="Towel">Towel</option>
+            <option value="Baby Item">Baby Item</option>
+            <option value="Children's Clothing">Children's Clothing</option>
+            <option value="Bouquet Wrap">Bouquet Wrap</option>
+            <option value="Pet Item">Pet Item</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="personalization" class="block font-body font-medium text-charcoal mb-2">Personalization details <span class="text-sage">*</span></label>
+          <textarea
+            id="personalization"
+            name="personalization"
+            required
+            rows="4"
+            placeholder="Names, monograms, colors, fonts, or any other details"
+            class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+          ></textarea>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            id="toggle-details"
+            class="font-body text-sage hover:text-sage-dark underline underline-offset-4 text-sm"
+          >
+            Add more details
+          </button>
+        </div>
+
+        <div id="more-details" class="hidden space-y-5">
+          <div>
+            <label for="phone" class="block font-body font-medium text-charcoal mb-2">Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="quantity" class="block font-body font-medium text-charcoal mb-2">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="needed_by" class="block font-body font-medium text-charcoal mb-2">Needed by</label>
+            <input
+              type="date"
+              id="needed_by"
+              name="needed_by"
+              class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="reference_image" class="block font-body font-medium text-charcoal mb-2">Reference image URL</label>
+            <input
+              type="text"
+              id="reference_image"
+              name="reference_image"
+              placeholder="Paste a link to an image for reference"
+              class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="notes" class="block font-body font-medium text-charcoal mb-2">Additional notes</label>
+            <textarea
+              id="notes"
+              name="notes"
+              rows="3"
+              class="w-full rounded-lg border border-sage-light px-4 py-3 focus:ring-2 focus:ring-sage focus:border-sage focus:outline-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-sage text-white font-body rounded-lg py-3 hover:bg-sage-dark transition-colors duration-200"
+        >
+          Submit Request
+        </button>
+      </form>
+
+      <div
+        id="success-message"
+        class="hidden mt-8 bg-sage-light rounded-xl p-8 text-center"
+      >
+        <p class="font-body text-charcoal text-lg">
+          Got it! I'll review your request and get back to you within 24 hours with a quote. — Stephanie
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("toggle-details");
+      const details = document.getElementById("more-details");
+      if (toggle && details) {
+        toggle.addEventListener("click", () => {
+          const isHidden = details.classList.contains("hidden");
+          details.classList.toggle("hidden");
+          toggle.textContent = isHidden ? "Hide extra details" : "Add more details";
+        });
+      }
+
+      const form = document.getElementById("custom-order-form");
+      const success = document.getElementById("success-message");
+      if (form && success) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const data = new FormData(form);
+          fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          })
+            .then(() => {
+              form.classList.add("hidden");
+              success.classList.remove("hidden");
+              success.scrollIntoView({ behavior: "smooth", block: "center" });
+            })
+            .catch(() => {
+              form.classList.add("hidden");
+              success.classList.remove("hidden");
+            });
+        });
+      }
+    });
+  </script>
+</Base>

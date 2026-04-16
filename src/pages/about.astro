@@ -1,0 +1,115 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: "Stephanie Loupe",
+      jobTitle: "Owner & Embroiderer",
+      worksFor: {
+        "@type": "LocalBusiness",
+        name: "Slidell Stitches",
+        url: site.url,
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Slidell",
+        addressRegion: "LA",
+        addressCountry: "US",
+      },
+    },
+    {
+      "@type": "AboutPage",
+      name: "About Stephanie Loupe — Slidell Stitches",
+      description:
+        "Meet the maker behind Slidell Stitches. Handmade embroidery from Slidell, Louisiana.",
+      url: `${site.url}/about`,
+    },
+  ],
+});
+---
+
+<Base
+  title="About Stephanie Loupe — Slidell Stitches"
+  description="Meet the maker behind Slidell Stitches. Handmade embroidery from Slidell, Louisiana. 2+ years, 645+ orders, 4.9 on Etsy."
+  schema={schema}
+>
+  <!-- Intro -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      <div class="aspect-[3/4] bg-sage-light rounded-xl flex items-center justify-center p-8">
+        <span class="text-charcoal-light text-sm text-center font-body">
+          Photo of Stephanie — replace before launch
+        </span>
+      </div>
+      <div>
+        <h1 class="font-serif text-4xl text-charcoal mb-6">Meet Stephanie</h1>
+        <div class="space-y-4 font-body text-charcoal-light leading-relaxed">
+          <p>
+            I'm Stephanie, and Slidell Stitches is where my love for embroidery meets everything I care about — family, football Saturdays, faith, and making something beautiful by hand.
+          </p>
+          <p>
+            It started the way most good things do — a project for a friend that turned into a project for her friend, and then another, and then I lost count. Before I knew it, my dining room table was covered in thread and fabric, and I wouldn't have it any other way.
+          </p>
+          <p>
+            Every stitch that leaves my hands is personal. Whether it's a wreath sash for your front door, a monogrammed baby quilt for a new little one, or a set of cocktail napkins for your next get-together — I put the same care into it that I would if it were going on my own front porch.
+          </p>
+          <p>
+            I'm based right here in Slidell, Louisiana, and I ship everywhere. If you've got an idea for something custom, I'd love to hear about it — that's honestly my favorite part of what I do.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workspace photo -->
+  <section class="px-6 max-w-6xl mx-auto pb-16">
+    <div class="aspect-[16/9] bg-sage-light rounded-xl flex items-center justify-center p-8">
+      <span class="text-charcoal-light text-sm text-center font-body">
+        Workspace photo — replace before launch
+      </span>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-cream-dark py-16 px-6">
+    <div class="max-w-4xl mx-auto grid grid-cols-3 gap-6 text-center">
+      <div>
+        <div class="font-serif text-3xl text-sage mb-1">{site.stats.years}</div>
+        <div class="font-body text-charcoal-light text-sm">Years on Etsy</div>
+      </div>
+      <div>
+        <div class="font-serif text-3xl text-sage mb-1">{site.stats.sales}</div>
+        <div class="font-body text-charcoal-light text-sm">Orders Completed</div>
+      </div>
+      <div>
+        <div class="font-serif text-3xl text-sage mb-1">{site.stats.rating}</div>
+        <div class="font-body text-charcoal-light text-sm">Star Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-serif text-3xl md:text-4xl text-charcoal mb-8">Let's make something beautiful</h2>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/shop"
+          class="inline-block bg-sage text-white font-body rounded-lg px-8 py-3 hover:bg-sage-dark transition-colors duration-200"
+        >
+          See my work
+        </a>
+        <a
+          href="/custom-orders"
+          class="inline-block bg-white text-sage border border-sage font-body rounded-lg px-8 py-3 hover:bg-sage-light transition-colors duration-200"
+        >
+          Have an idea?
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

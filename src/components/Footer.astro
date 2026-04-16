@@ -1,0 +1,108 @@
+---
+import { site } from "../data/site";
+
+const quickLinks = [
+  { href: "/shop", label: "Shop" },
+  { href: "/custom-orders", label: "Custom Orders" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+const localBusinessSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}${site.logo}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Slidell",
+    addressRegion: "Louisiana",
+    addressCountry: "US",
+  },
+  sameAs: [site.social.facebook, site.social.etsy],
+});
+---
+
+<footer class="bg-cream-dark">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div>
+        <a href="/" class="flex items-center gap-2 cursor-pointer">
+          <img src={site.logo} alt={site.name} class="h-10 w-10 rounded-full object-cover" />
+          <span class="font-serif text-lg font-bold text-charcoal">{site.name}</span>
+        </a>
+        <p class="mt-3 font-body text-sm text-charcoal-light">
+          Handmade embroidery from Slidell, Louisiana
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-serif text-sm font-semibold text-charcoal uppercase tracking-wider mb-4">
+          Quick Links
+        </h4>
+        <ul class="space-y-2">
+          {quickLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="font-body text-sm text-charcoal-light hover:text-sage cursor-pointer transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-serif text-sm font-semibold text-charcoal uppercase tracking-wider mb-4">
+          Connect
+        </h4>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href={site.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-body text-sm text-charcoal-light hover:text-sage cursor-pointer transition-colors"
+            >
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a
+              href={site.social.etsy}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-body text-sm text-charcoal-light hover:text-sage cursor-pointer transition-colors"
+            >
+              Etsy
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${site.email.hello}`}
+              class="font-body text-sm text-charcoal-light hover:text-sage cursor-pointer transition-colors"
+            >
+              {site.email.hello}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-charcoal/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="font-body text-xs text-charcoal-light">
+        &copy; 2026 {site.name}. All rights reserved.
+      </p>
+      <p class="font-body text-xs text-charcoal-light">
+        Handmade with care in Slidell, LA
+      </p>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={localBusinessSchema} />
+</footer>
