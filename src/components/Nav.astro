@@ -47,48 +47,87 @@ const links = [
     </div>
   </div>
 
+  <!-- Mobile menu backdrop -->
   <div
-    id="mobile-menu"
-    class="fixed inset-0 z-50 bg-cream flex-col items-center justify-center gap-8 hidden"
-  >
-    <button
-      id="mobile-menu-close"
-      class="absolute top-4 right-4 cursor-pointer p-2 text-charcoal"
-      aria-label="Close menu"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+    id="mobile-backdrop"
+    class="fixed inset-0 z-40 bg-charcoal/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 ease-out md:hidden"
+    aria-hidden="true"
+  ></div>
 
-    {links.map((link) => (
-      <a
-        href={link.href}
-        class:list={[
-          "font-serif text-2xl cursor-pointer transition-colors",
-          pathname === link.href || pathname.startsWith(link.href + "/")
-            ? "text-sage-dark"
-            : "text-charcoal hover:text-sage",
-        ]}
+  <!-- Mobile menu panel -->
+  <aside
+    id="mobile-menu"
+    class="fixed top-0 right-0 z-50 h-full w-[85%] max-w-sm bg-cream shadow-2xl translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden flex flex-col"
+    aria-label="Mobile menu"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between px-6 py-4 border-b border-sage-light/40">
+      <span class="font-serif text-lg font-bold text-charcoal">Menu</span>
+      <button
+        id="mobile-menu-close"
+        class="cursor-pointer p-2 -mr-2 text-charcoal hover:text-sage transition-colors"
+        aria-label="Close menu"
       >
-        {link.label}
-      </a>
-    ))}
-  </div>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="flex flex-col px-6 py-8 gap-6">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "font-serif text-2xl cursor-pointer transition-colors",
+            pathname === link.href || pathname.startsWith(link.href + "/")
+              ? "text-sage-dark"
+              : "text-charcoal hover:text-sage",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="mt-auto px-6 py-6 border-t border-sage-light/40">
+      <p class="font-script text-2xl text-sage mb-2">Slidell Stitches</p>
+      <p class="font-body text-sm text-charcoal-light">
+        Handmade in Slidell, Louisiana
+      </p>
+    </div>
+  </aside>
 </nav>
 
 <script>
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
+  const backdrop = document.getElementById("mobile-backdrop");
   const close = document.getElementById("mobile-menu-close");
 
-  btn?.addEventListener("click", () => {
-    menu?.classList.remove("hidden");
-    menu?.classList.add("flex");
-  });
+  function openMenu() {
+    if (!menu || !backdrop) return;
+    menu.classList.remove("translate-x-full");
+    menu.setAttribute("aria-hidden", "false");
+    backdrop.classList.remove("opacity-0", "pointer-events-none");
+    backdrop.classList.add("opacity-100");
+    document.body.style.overflow = "hidden";
+  }
 
-  close?.addEventListener("click", () => {
-    menu?.classList.add("hidden");
-    menu?.classList.remove("flex");
+  function closeMenu() {
+    if (!menu || !backdrop) return;
+    menu.classList.add("translate-x-full");
+    menu.setAttribute("aria-hidden", "true");
+    backdrop.classList.add("opacity-0", "pointer-events-none");
+    backdrop.classList.remove("opacity-100");
+    document.body.style.overflow = "";
+  }
+
+  btn?.addEventListener("click", openMenu);
+  close?.addEventListener("click", closeMenu);
+  backdrop?.addEventListener("click", closeMenu);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
   });
 </script>
