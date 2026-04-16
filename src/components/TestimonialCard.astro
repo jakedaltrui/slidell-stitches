@@ -1,0 +1,42 @@
+---
+import StarRating from "./StarRating.astro";
+
+interface Props {
+  rating: number;
+  text: string;
+  name: string;
+  date: string;
+  product?: string;
+}
+
+const { rating, text, name, date, product } = Astro.props;
+---
+
+<article class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 flex flex-col h-full border border-cream-dark">
+  <div class="flex items-center justify-between mb-4">
+    <StarRating rating={rating} size="sm" />
+    <span class="inline-flex items-center gap-1 text-xs font-body text-charcoal-light">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 text-sage">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      </svg>
+      Verified Etsy buyer
+    </span>
+  </div>
+
+  <blockquote class="font-body text-charcoal leading-relaxed flex-1 mb-4">
+    "{text}"
+  </blockquote>
+
+  <footer class="font-body text-sm text-charcoal-light border-t border-cream-dark pt-4">
+    <div class="font-semibold text-charcoal">{name}</div>
+    <div class="flex items-center gap-2 mt-0.5">
+      <span>{date}</span>
+      {product && (
+        <>
+          <span class="text-charcoal-light/50">·</span>
+          <span class="italic">{product}</span>
+        </>
+      )}
+    </div>
+  </footer>
+</article>

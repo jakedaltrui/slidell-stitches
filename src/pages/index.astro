@@ -6,6 +6,9 @@ import CategoryCard from "../components/CategoryCard.astro";
 import ProductCard from "../components/ProductCard.astro";
 import { site } from "../data/site";
 import { categoryList, categories } from "../data/categories";
+import { testimonials } from "../data/testimonials";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import StarRating from "../components/StarRating.astro";
 
 const allProducts = await getCollection("products");
 
@@ -87,6 +90,46 @@ const schema = JSON.stringify({
     </div>
   </section>
 
+  <!-- Testimonials -->
+  {testimonials.length > 0 && (
+    <section class="py-16 px-6 bg-cream">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+          <p class="font-script text-3xl text-sage mb-2">kind words</p>
+          <h2 class="font-serif text-3xl md:text-4xl text-charcoal">What Customers Are Saying</h2>
+          <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+            <StarRating rating={site.stats.rating} size="md" showNumber={true} />
+            <span class="text-charcoal-light font-body">·</span>
+            <span class="font-body text-charcoal-light">{site.stats.reviewCount} reviews on Etsy</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.slice(0, 6).map((t) => (
+            <TestimonialCard
+              rating={t.rating}
+              text={t.text}
+              name={t.name}
+              date={t.date}
+              product={t.product}
+            />
+          ))}
+        </div>
+
+        <div class="text-center mt-10">
+          <a
+            href={site.social.etsyReviews}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-body text-sage hover:text-sage-dark underline underline-offset-4 transition-colors duration-200"
+          >
+            Read all {site.stats.reviewCount} reviews on Etsy →
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Custom Order CTA -->
   <section class="bg-cream-dark py-16 px-6">
     <div class="max-w-2xl mx-auto text-center">
@@ -132,9 +175,9 @@ const schema = JSON.stringify({
             <path d="M20 6L9 17l-5-5"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-charcoal mb-2">Trusted by 645+ Customers</h3>
+        <h3 class="font-serif text-xl text-charcoal mb-2">{site.stats.reviewCount} 5-Star Reviews</h3>
         <p class="font-body text-charcoal-light">
-          With a 4.9 rating on Etsy and hundreds of happy customers, you're in good hands. Quality and care, every single time.
+          A {site.stats.rating} average across {site.stats.reviewCount} reviews on Etsy, with Star Seller status earned through real customer love. Every order matters.
         </p>
       </div>
     </div>

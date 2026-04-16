@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import StarRating from "./StarRating.astro";
 ---
 
 <section class="relative min-h-[50vh] md:min-h-[70vh] flex items-center justify-center bg-cream-dark" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.015) 10px, rgba(0,0,0,0.015) 11px), repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(0,0,0,0.015) 10px, rgba(0,0,0,0.015) 11px);">
@@ -18,12 +19,21 @@ import { site } from "../data/site";
         Request Custom Order
       </a>
     </div>
-    <div class="flex items-center justify-center gap-2 mt-8 text-charcoal-light text-sm font-body">
-      <span>{site.stats.sales} Orders</span>
-      <span class="text-charcoal-light/50">&middot;</span>
-      <span>{site.stats.rating} on Etsy</span>
-      <span class="text-charcoal-light/50">&middot;</span>
-      <span>Handmade in {site.location}</span>
+    <div class="mt-10 flex flex-col items-center gap-3">
+      <StarRating
+        rating={site.stats.rating}
+        size="md"
+        showNumber={true}
+        reviewCount={site.stats.reviewCount}
+        asLink={site.social.etsyReviews}
+      />
+      <span class="inline-flex items-center gap-1.5 text-sm font-body text-charcoal-light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-sage">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+        </svg>
+        Stitching from {site.location} since {site.stats.yearStarted}
+      </span>
     </div>
   </div>
 </section>

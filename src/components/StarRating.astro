@@ -1,0 +1,97 @@
+---
+interface Props {
+  rating: number;
+  size?: "sm" | "md" | "lg";
+  showNumber?: boolean;
+  reviewCount?: number;
+  asLink?: string;
+  class?: string;
+}
+
+const {
+  rating,
+  size = "md",
+  showNumber = false,
+  reviewCount,
+  asLink,
+  class: className = "",
+} = Astro.props;
+
+const sizeClass = {
+  sm: "w-3.5 h-3.5",
+  md: "w-5 h-5",
+  lg: "w-6 h-6",
+}[size];
+
+const textSize = {
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+}[size];
+
+const fullStars = Math.floor(rating);
+const hasPartial = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+const fullStarsAdjusted = rating - fullStars >= 0.75 ? fullStars + 1 : fullStars;
+
+const stars = [1, 2, 3, 4, 5].map((i) => ({
+  i,
+  isFull: i <= fullStarsAdjusted,
+  isPartial: i > fullStarsAdjusted && i === fullStars + 1 && hasPartial,
+}));
+
+const containerClasses = [
+  "inline-flex items-center gap-2",
+  asLink && "cursor-pointer hover:opacity-80 transition-opacity",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{asLink ? (
+  <a href={asLink} target="_blank" rel="noopener noreferrer" class={containerClasses}>
+    <span class="inline-flex items-center gap-0.5" aria-label={`Rated ${rating} out of 5 stars`}>
+      {stars.map(({ i, isFull, isPartial }) => (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class={`${sizeClass} shrink-0`} aria-hidden="true">
+          <defs>
+            <linearGradient id={`grad-${i}-${rating}-l`} x1="0%" x2="100%" y1="0%" y2="0%">
+              <stop offset="50%" stop-color="#C9A96E" />
+              <stop offset="50%" stop-color="#E5E0D6" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            fill={isFull ? "#C9A96E" : isPartial ? `url(#grad-${i}-${rating}-l)` : "#E5E0D6"}
+          />
+        </svg>
+      ))}
+    </span>
+    {showNumber && <span class={`font-body font-semibold text-charcoal ${textSize}`}>{rating}</span>}
+    {reviewCount !== undefined && (
+      <span class={`font-body text-charcoal-light ${textSize}`}>({reviewCount} reviews on Etsy →)</span>
+    )}
+  </a>
+) : (
+  <div class={containerClasses}>
+    <span class="inline-flex items-center gap-0.5" aria-label={`Rated ${rating} out of 5 stars`}>
+      {stars.map(({ i, isFull, isPartial }) => (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class={`${sizeClass} shrink-0`} aria-hidden="true">
+          <defs>
+            <linearGradient id={`grad-${i}-${rating}-d`} x1="0%" x2="100%" y1="0%" y2="0%">
+              <stop offset="50%" stop-color="#C9A96E" />
+              <stop offset="50%" stop-color="#E5E0D6" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            fill={isFull ? "#C9A96E" : isPartial ? `url(#grad-${i}-${rating}-d)` : "#E5E0D6"}
+          />
+        </svg>
+      ))}
+    </span>
+    {showNumber && <span class={`font-body font-semibold text-charcoal ${textSize}`}>{rating}</span>}
+    {reviewCount !== undefined && (
+      <span class={`font-body text-charcoal-light ${textSize}`}>({reviewCount} reviews)</span>
+    )}
+  </div>
+)}

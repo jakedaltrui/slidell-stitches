@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import { site } from "../data/site";
+import StarSellerBadge from "../components/StarSellerBadge.astro";
+import StarRating from "../components/StarRating.astro";
 
 const schema = JSON.stringify({
   "@context": "https://schema.org",
@@ -46,6 +48,11 @@ const schema = JSON.stringify({
         </span>
       </div>
       <div>
+        {site.stats.starSeller && (
+          <div class="mb-4">
+            <StarSellerBadge size="md" />
+          </div>
+        )}
         <h1 class="font-serif text-4xl text-charcoal mb-6">Meet Stephanie</h1>
         <div class="space-y-4 font-body text-charcoal-light leading-relaxed">
           <p>
@@ -78,17 +85,25 @@ const schema = JSON.stringify({
   <section class="bg-cream-dark py-16 px-6">
     <div class="max-w-4xl mx-auto grid grid-cols-3 gap-6 text-center">
       <div>
-        <div class="font-serif text-3xl text-sage mb-1">{site.stats.years}</div>
-        <div class="font-body text-charcoal-light text-sm">Years on Etsy</div>
+        <div class="font-serif text-3xl text-sage mb-1">Since {site.stats.yearStarted}</div>
+        <div class="font-body text-charcoal-light text-sm">Stitching from Slidell</div>
       </div>
       <div>
         <div class="font-serif text-3xl text-sage mb-1">{site.stats.sales}</div>
-        <div class="font-body text-charcoal-light text-sm">Orders Completed</div>
+        <div class="font-body text-charcoal-light text-sm">Orders shipped</div>
       </div>
       <div>
-        <div class="font-serif text-3xl text-sage mb-1">{site.stats.rating}</div>
-        <div class="font-body text-charcoal-light text-sm">Star Rating</div>
+        <div class="font-serif text-3xl text-sage mb-1">{site.stats.rating} / 5</div>
+        <div class="font-body text-charcoal-light text-sm">{site.stats.reviewCount} Etsy reviews</div>
       </div>
+    </div>
+    <div class="max-w-4xl mx-auto mt-8 flex justify-center">
+      <StarRating
+        rating={site.stats.rating}
+        size="md"
+        reviewCount={site.stats.reviewCount}
+        asLink={site.social.etsyReviews}
+      />
     </div>
   </section>
 

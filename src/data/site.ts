@@ -14,11 +14,15 @@ export const site = {
     facebook:
       "https://www.facebook.com/p/Slidell-Stitches-61578203218841/",
     etsy: "https://www.etsy.com/shop/slidellstitches",
+    etsyReviews: "https://www.etsy.com/shop/slidellstitches/reviews",
   },
   stats: {
-    sales: "645+",
-    rating: "4.9",
-    years: "2+",
+    sales: 645,
+    rating: 4.9,
+    reviewCount: 133,
+    years: 2,
+    yearStarted: 2024,
+    starSeller: true,
   },
   logo: "/logo.png",
   url: "https://slidell-stitches.com",
